@@ -1,0 +1,41 @@
+--- initial queue ---------------
+No of patients added: 3
+Refreshed queue: 
+100060,Surya
+100157,Rishi
+100254,Ajay
+---------------------------
+---new patient entered-----
+Patient details: John, 55
+Refreshed queue: 
+100060,Surya
+100157,Rishi
+100355,John
+100254,Ajay
+---------------------------
+---next patient -----------
+Next patient for consulation is: 100060, Surya
+---------------------------
+---new patient entered-----
+Patient details: Pradeep, 45
+Refreshed queue: 
+100157,Rishi
+100355,John
+100254,Ajay
+100445,Pradeep
+---------------------------
+---next patient -----------
+Next patient for consulation is: 100157, Rishi
+---------------------------
+---next patient -----------
+Next patient for consulation is: 100254, Ajay
+---------------------------
+---new patient entered-----
+Patient details: Sandeep, 60
+Refreshed queue: 
+100560,Sandeep
+100355,John
+100445,Pradeep
+---------------------------
+---next patient -----------
+Next patient for consulation is: 100560, Sandeep
