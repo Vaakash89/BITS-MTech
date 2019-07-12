@@ -31,19 +31,16 @@ class PatientFunctions:
         self.counter = self.counter + 1
         
 
-    def enqueuePatient(self, PatId):
-        
+    def enqueuePatient(self, PatId):  
         self.patients.append([PatId])
         self.fullHeap()
+
     
     def dequeuePatient(self, PatId):
-        temp = self.head
-        self.head = self.head.right
-        self.head.left = None
-        temp.right = None
-        self.patients = self.patients[1:]
-        return temp
-    
+        if(self.patients[0][0] == PatId):
+             self.patients = self.patients[1:]
+        self.fullHeap()
+        
     def getAge(self,n):
         return n[0][-2:]
         
@@ -52,7 +49,7 @@ class PatientFunctions:
         l = 2 * i + 1     
         r = 2 * i + 2 
 
-        if l < n and self.getAge(arr[i]) < self.getAge(arr[l]):
+        if l < n and self.getAge(arr[largest]) < self.getAge(arr[l]):
             largest = l 
         if r < n and self.getAge(arr[largest]) < self.getAge(arr[r]): 
             largest = r 
@@ -62,7 +59,8 @@ class PatientFunctions:
         
     def fullHeap(self):
         for i in range(int(len(self.patients)/2)-1,-1,-1):
-            self.heapify(self.patients, len(self.patients),i)    
+         #for i in range(0,int(len(self.patients)/2)-1):
+             self.heapify(self.patients, len(self.patients),i)    
     
     def getPatientDetails(self, iD):
         n=self.head
@@ -94,8 +92,10 @@ class PatientFunctions:
         #HeapSort
         for i in range(n-1, -1, -1): 
             dummy[i], dummy[0] = dummy[0], dummy[i] # swap
+            self.heapify(dummy, i, 0 )
+        for i in range(n-1, -1, -1):
             f.write(self.getPatientDetails(dummy[i][0])[0]+","+self.getPatientDetails(dummy[i][0])[1]+"\r\n")
-            self.heapify(dummy, i, 0 )             
+            
         f.close()
             
     def firstWrite(self,fileName):
@@ -127,11 +127,16 @@ class PatientFunctions:
         
             if (task == "nextPatient"):
                 f= open(outputFile,"a+")
-                f.write("---------------------------\r\n")
-                f.write("---next patient -----------\r\n")
-                f.write("Next patient for consulation is: " + self.getPatientDetails(self.patients[0][0])[0]+", " + self.getPatientDetails(self.patients[0][0])[1]+"\r\n")
-                f.close()        
-                temp = self.dequeuePatient(self.patients[0][0])
+                if(len(self.patients) == 0):
+                    f.write("---------------------------\r\n")
+                    f.write("---next patient -----------\r\n")
+                    f.write("---No more patients in the queue ------\r\n")
+                else:
+                    f.write("---------------------------\r\n")
+                    f.write("---next patient -----------\r\n")
+                    f.write("Next patient for consulation is: " + self.getPatientDetails(self.patients[0][0])[0]+", " + self.getPatientDetails(self.patients[0][0])[1]+"\r\n")
+                    self.dequeuePatient(self.patients[0][0])
+                f.close()   
         f1.close()
         
 
